@@ -25,12 +25,12 @@ jobs:
         working-directory: ./registraduria
         run: mvn clean verify
 
-      - name: Publicar reporte de cobertura JaCoCo
+      - name: Publicar reporte de cobertura JaCoCo (combinado)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: jacoco-report
-          path: registraduria/target/site/jacoco-it/
+          name: jacoco-report-combinado
+          path: registraduria/target/site/jacoco-merged/
 
       - name: Publicar resultados de pruebas
         if: always()
