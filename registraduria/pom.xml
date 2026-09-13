@@ -202,7 +202,12 @@
             <goals>
               <goal>report-integration</goal>
             </goals>
-          </execution>rn          <execution>n            <id>merge-results</id>n            <phase>verify</phase>n            <goals>n              <goal>merge</goal>n            </goals>n            <configuration>n              <fileSets>n                <fileSet>n                  <directory>${project.build.directory}</directory>n                  <includes>n                    <include>jacoco.exec</include>n                    <include>jacoco-it.exec</include>n                  </includes>n                </fileSet>n              </fileSets>n              <destFile>${project.build.directory}/jacoco-merged.exec</destFile>n            </configuration>n          </execution>n          <execution>n            <id>report-merged</id>n            <phase>verify</phase>n            <goals>n              <goal>report</goal>n            </goals>n            <configuration>n              <dataFile>${project.build.directory}/jacoco-merged.exec</dataFile>n              <outputDirectory>${project.build.directory}/site/jacoco-merged</outputDirectory>n            </configuration>n          </execution>        </executions>rn      </plugin>rn      <plugin>rn        <groupId>org.apache.maven.plugins</groupId>rn        <artifactId>maven-compiler-plugin</artifactId>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
         <configuration>
           <release>17</release>
