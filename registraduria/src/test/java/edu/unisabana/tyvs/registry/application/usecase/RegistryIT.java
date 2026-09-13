@@ -75,4 +75,43 @@ public class RegistryIT {
         // Assert: la unicidad la garantiza la base de datos, no el mock
         assertEquals(RegisterResult.DUPLICATED, result2);
     }
+    
+        @Test
+    public void shouldReturnUnderageWhenPersonIsMinor() throws Exception {
+        // Arrange: persona menor de edad
+        Person p = new Person("Menor", 200, 15, Gender.MALE, true);
+
+        // Act
+        RegisterResult result = registry.registerVoter(p);
+
+        // Assert: no debe quedar registrada en la base de datos real
+        assertEquals(RegisterResult.UNDERAGE, result);
+        assertTrue(!repo.existsById(200));
+    }
+
+    @Test
+    public void shouldReturnInvalidAgeWhenAgeIsImpossible() throws Exception {
+        // Arrange: edad biologicamente imposible
+        Person p = new Person("Imposible", 300, -1, Gender.UNIDENTIFIED, true);
+
+        // Act
+        RegisterResult result = registry.registerVoter(p);
+
+        // Assert
+        assertEquals(RegisterResult.INVALID_AGE, result);
+        assertTrue(!repo.existsById(300));
+    }
+
+    @Test
+    public void shouldReturnDeadWhenPersonIsNotAlive() throws Exception {
+        // Arrange: persona fallecida
+        Person p = new Person("Difunto", 400, 50, Gender.MALE, false);
+
+        // Act
+        RegisterResult result = registry.registerVoter(p);
+
+        // Assert
+        assertEquals(RegisterResult.DEAD, result);
+        assertTrue(!repo.existsById(400));
+    }
 }
